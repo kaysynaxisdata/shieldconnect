@@ -1,0 +1,18 @@
+input_dir: Resources/
+output_dir: Resources/Generated
+
+xcassets:
+  inputs: Assets.xcassets
+  outputs:
+    - templateName: swift5
+      output: Assets.swift
+fonts:
+  inputs: Fonts
+  outputs:
+    templateName: swift5
+    output: Fonts.swift
+strings:
+  inputs: Localizable/en.lproj/Localizable.strings
+  outputs:
+    - templateName: structured-swift5
+      output: Localizable.swift
