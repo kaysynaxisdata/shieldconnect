@@ -9,8 +9,6 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: $BUNDLE_ID
-      app_store_connect:
-        api_key: Encrypted(ASC_API_KEY_REF)
     scripts:
       - name: Resolve Swift packages
         script: |
