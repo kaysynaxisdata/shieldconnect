@@ -1,5 +1,40 @@
 workflows:
-    sample-workflow:
-        name: Shield Connect
-        max_build_duration: 120
-        instance_type: mac_mini_m2
+  ios-release:
+    name: iOS Release Workflow
+    environment:
+      vars:
+        XCODE_SCHEME: "shield-connect"
+        XCODE_PROJECT: "shield-connect.xcodeproj"
+        BUNDLE_ID: "com.yourcompany.shieldconnect"
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: $BUNDLE_ID
+      app_store_connect:
+        api_key: Encrypted(ASC_API_KEY_REF)
+    scripts:
+      - name: Resolve Swift packages
+        script: |
+          xcodebuild -resolvePackageDependencies -project "$XCODE_PROJECT"
+      - name: Build and archive
+        script: |
+          xcodebuild clean
+          xcodebuild archive \
+            -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -sdk iphoneos \
+            -configuration Release \
+            -archivePath "$HOME/build/$XCODE_SCHEME.xcarchive" \
+            CODE_SIGN_STYLE=Automatic
+      - name: Export IPA
+        script: |
+          xcodebuild -exportArchive \
+            -archivePath "$HOME/build/$XCODE_SCHEME.xcarchive" \
+            -exportOptionsPlist ExportOptions.plist \
+            -exportPath "$HOME/build/export"
+    artifacts:
+      - build/export/*.ipa
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        submit_to_app_store: false
