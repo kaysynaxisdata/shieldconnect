@@ -15,7 +15,7 @@ workflows:
       - name: Resolve Swift packages
         script: |
           xcodebuild -resolvePackageDependencies -project "$XCODE_PROJECT"
-      - name: Build and archive
+      - name: Build and export archive for App Store
         script: |
           xcodebuild clean
           xcodebuild archive \
@@ -24,17 +24,39 @@ workflows:
             -sdk iphoneos \
             -configuration Release \
             -archivePath "$HOME/build/$XCODE_SCHEME.xcarchive" \
-            CODE_SIGN_STYLE=Automatic
-      - name: Export IPA
-        script: |
+            CODE_SIGN_STYLE=Automatic \
+            DEVELOPMENT_TEAM=X5ZBB6F8J7
+
           xcodebuild -exportArchive \
             -archivePath "$HOME/build/$XCODE_SCHEME.xcarchive" \
-            -exportOptionsPlist ExportOptions.plist \
-            -exportPath "$HOME/build/export"
+            -exportPath "$HOME/build/export" \
+            -allowProvisioningUpdates \
+            -exportOptionsPlist <(cat <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+ "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>method</key>
+    <string>app-store</string>
+    <key>signingStyle</key>
+    <string>automatic</string>
+    <key>stripSwiftSymbols</key>
+    <true/>
+    <key>uploadBitcode</key>
+    <true/>
+    <key>compileBitcode</key>
+    <true/>
+    <key>teamID</key>
+    <string>X5ZBB6F8J7</string>
+</dict>
+</plist>
+EOF
+)
     artifacts:
       - build/export/*.ipa
     publishing:
       app_store_connect:
         auth: integration
         submit_to_testflight: true
-        submit_to_app_store: false
+        submit_to_app_store: true
