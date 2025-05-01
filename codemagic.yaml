@@ -7,7 +7,7 @@ workflows:
       vars:
         XCODE_SCHEME: "shield-connect"
         XCODE_PROJECT: "shield-connect.xcodeproj"
-        BUNDLE_ID: "com.yourcompany.shieldconnect"
+        BUNDLE_ID: "com.synaxis.shieldconnect"
       ios_signing:
         distribution_type: app_store
         bundle_identifier: $BUNDLE_ID
