@@ -2,7 +2,7 @@ workflows:
   ios-release:
     name: iOS Release Workflow
     integrations:
-      app_store_connect: "K8AYK839MR"
+      app_store_connect: "CodeMagic"
     environment:
       vars:
         XCODE_SCHEME: "shield-connect"
