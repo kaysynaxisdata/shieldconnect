@@ -6,12 +6,14 @@ workflows:
         XCODE_SCHEME: "shield-connect"
         XCODE_PROJECT: "shield-connect.xcodeproj"
         BUNDLE_ID: "com.synaxis.shieldconnect"
-      code_signing:
-        certificates:
-          - certificate_url: AppCertificate
-        provisioning_profiles:
-          - bundle_identifier: $BUNDLE_ID
-            profile_url: AppstoreShield
+
+    code_signing:
+      certificates:
+        - certificate_url: AppCertificate
+      provisioning_profiles:
+        - bundle_identifier: $BUNDLE_ID
+          profile_url: AppstoreShield
+
     scripts:
       - name: Clean and archive project
         script: |
