@@ -38,13 +38,18 @@ workflows:
           xcode-project build-ipa \
             --project "$XCODE_PROJECT" \
             --scheme "$XCODE_SCHEME" \
-            --export-dir "$HOME/build/export" \
+            --export-dir "$HOME/build/ipa" \
           | tee "$CM_BUILD_DIR/export.log"
+
+      - name: Debug IPA contents
+        script: |
+          echo "IPA directory listing:" 
+          find $HOME -name "*.ipa"
 
     artifacts:
       - $CM_BUILD_DIR/xcodebuild.log
       - $CM_BUILD_DIR/export.log
-      - build/export/*.ipa
+      - build/ipa/*.ipa
       - build/**/*.xcarchive
 
     publishing:
