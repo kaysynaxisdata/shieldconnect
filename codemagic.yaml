@@ -2,6 +2,9 @@ workflows:
   ios-test-sign:
     name: Minimal iOS Sign & Upload
 
+    integrations:
+      app_store_connect: "CodeMagic"
+
     environment:
       vars:
         XCODE_SCHEME: "shield-connect"
