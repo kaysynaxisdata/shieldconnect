@@ -15,26 +15,39 @@ workflows:
       - name: Resolve Swift packages
         script: |
           xcodebuild -resolvePackageDependencies -project "$XCODE_PROJECT"
+
       - name: Build and archive
         script: |
           xcodebuild clean
-          xcodebuild archive \
+          set -o pipefail && xcodebuild archive \
             -project "$XCODE_PROJECT" \
             -scheme "$XCODE_SCHEME" \
             -sdk iphoneos \
             -configuration Release \
             -archivePath "$HOME/build/$XCODE_SCHEME.xcarchive" \
             CODE_SIGN_STYLE=Automatic \
-            DEVELOPMENT_TEAM=X5ZBB6F8J7 \ 
-            -allowProvisioningUpdates
+            DEVELOPMENT_TEAM=X5ZBB6F8J7 \
+            -allowProvisioningUpdates \
+            -verbose \
+            -showBuildTimingSummary \
+            -resultBundlePath "$CM_BUILD_DIR/shieldconnect.xcresult" \
+          | tee "$CM_BUILD_DIR/xcodebuild.log"
+
       - name: Export IPA
         script: |
           xcodebuild -exportArchive \
             -archivePath "$HOME/build/$XCODE_SCHEME.xcarchive" \
             -exportOptionsPlist ExportOptions.plist \
-            -exportPath "$HOME/build/export"
+            -exportPath "$HOME/build/export" \
+            -allowProvisioningUpdates \
+          | tee "$CM_BUILD_DIR/export.log"
+
     artifacts:
       - build/export/*.ipa
+      - $CM_BUILD_DIR/xcodebuild.log
+      - $CM_BUILD_DIR/export.log
+      - $CM_BUILD_DIR/shieldconnect.xcresult
+
     publishing:
       app_store_connect:
         auth: integration
