@@ -35,11 +35,9 @@ workflows:
 
       - name: Export .ipa for App Store
         script: |
-          xcodebuild -exportArchive \
-            -archivePath "$HOME/build/$XCODE_SCHEME.xcarchive" \
-            -exportPath "$HOME/build/export" \
-            -exportOptionsPlist ExportOptions.plist \
-            -allowProvisioningUpdates \
+          xcode-project build-ipa \
+            --archive-path "$HOME/build/$XCODE_SCHEME.xcarchive" \
+            --output "$HOME/build/export" \
           | tee "$CM_BUILD_DIR/export.log"
 
     artifacts:
