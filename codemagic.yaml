@@ -1,6 +1,6 @@
 workflows:
   ios-test-sign:
-    name: Minimal iOS Sign & Archive
+    name: Minimal iOS Sign & Upload
 
     environment:
       vars:
@@ -28,6 +28,23 @@ workflows:
             -allowProvisioningUpdates \
           | tee "$CM_BUILD_DIR/xcodebuild.log"
 
+      - name: Export .ipa for App Store
+        script: |
+          xcodebuild -exportArchive \
+            -archivePath "$HOME/build/$XCODE_SCHEME.xcarchive" \
+            -exportPath "$HOME/build/export" \
+            -exportOptionsPlist ExportOptions.plist \
+            -allowProvisioningUpdates \
+          | tee "$CM_BUILD_DIR/export.log"
+
     artifacts:
       - $CM_BUILD_DIR/xcodebuild.log
+      - $CM_BUILD_DIR/export.log
+      - build/export/*.ipa
       - build/**/*.xcarchive
+
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        submit_to_app_store: true
