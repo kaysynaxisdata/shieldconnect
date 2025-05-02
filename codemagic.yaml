@@ -46,10 +46,7 @@ workflows:
           ls -lR "$CM_BUILD_DIR/outputs"
 
     artifacts:
-      - $CM_BUILD_DIR/xcodebuild.log
-      - $CM_BUILD_DIR/export.log
-      - build/outputs/**/*.ipa
-      - build/**/*.xcarchive
+      - build/ios/ipa/*.ipa
 
     publishing:
       app_store_connect:
