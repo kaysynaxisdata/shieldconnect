@@ -38,7 +38,6 @@ workflows:
           xcode-project build-ipa \
             --project "$XCODE_PROJECT" \
             --scheme "$XCODE_SCHEME" \
-            --export-dir "$HOME/build/ipa" \
           | tee "$CM_BUILD_DIR/export.log"
 
       - name: Debug IPA contents
@@ -49,7 +48,7 @@ workflows:
     artifacts:
       - $CM_BUILD_DIR/xcodebuild.log
       - $CM_BUILD_DIR/export.log
-      - build/ipa/*.ipa
+      - $CM_BUILD_DIR/outputs/ipa/*.ipa
       - build/**/*.xcarchive
 
     publishing:
