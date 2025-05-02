@@ -40,11 +40,6 @@ workflows:
             --scheme "$XCODE_SCHEME" \
           | tee "$CM_BUILD_DIR/export.log"
 
-      - name: Inspect IPA output folder
-        script: |
-          echo "Listing IPA output..."
-          ls -lR "$CM_BUILD_DIR/outputs"
-
     artifacts:
       - build/ios/ipa/*.ipa
 
