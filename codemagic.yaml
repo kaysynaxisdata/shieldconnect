@@ -38,6 +38,7 @@ workflows:
           xcode-project build-ipa \
             --project "$XCODE_PROJECT" \
             --scheme "$XCODE_SCHEME" \
+            --export-dir "$HOME/build/export" \
           | tee "$CM_BUILD_DIR/export.log"
 
     artifacts:
