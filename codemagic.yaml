@@ -33,11 +33,11 @@ workflows:
             -allowProvisioningUpdates \
           | tee "$CM_BUILD_DIR/xcodebuild.log"
 
-      - name: Export .ipa for App Store
+      - name: Export .ipa using default settings
         script: |
           xcode-project build-ipa \
-            --archive-path "$HOME/build/$XCODE_SCHEME.xcarchive" \
-            --output "$HOME/build/export" \
+            --project "$XCODE_PROJECT" \
+            --scheme "$XCODE_SCHEME" \
           | tee "$CM_BUILD_DIR/export.log"
 
     artifacts:
