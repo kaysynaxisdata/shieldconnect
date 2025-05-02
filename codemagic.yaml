@@ -12,8 +12,10 @@ workflows:
         BUNDLE_ID: "com.synaxis.shieldconnect"
 
       ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.synaxis.shieldconnect
+        provisioning_profiles:
+          - AppstoreShield
+        certificates:
+          - AppCertificate
 
     scripts:
       - name: Set up code signing in project
