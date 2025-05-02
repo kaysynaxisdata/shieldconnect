@@ -25,7 +25,8 @@ workflows:
             -configuration Release \
             -archivePath "$HOME/build/$XCODE_SCHEME.xcarchive" \
             CODE_SIGN_STYLE=Automatic \
-            DEVELOPMENT_TEAM=X5ZBB6F8J7
+            DEVELOPMENT_TEAM=X5ZBB6F8J7 \ 
+            -allowProvisioningUpdates
       - name: Export IPA
         script: |
           xcodebuild -exportArchive \
