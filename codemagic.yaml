@@ -1,20 +1,21 @@
 workflows:
   ios-test-sign:
     name: Minimal iOS Sign & Archive
+
     environment:
       vars:
         XCODE_SCHEME: "shield-connect"
         XCODE_PROJECT: "shield-connect.xcodeproj"
         BUNDLE_ID: "com.synaxis.shieldconnect"
 
-    code_signing:
-      certificates:
-        - certificate_url: AppCertificate
-      provisioning_profiles:
-        - bundle_identifier: $BUNDLE_ID
-          profile_url: AppstoreShield
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.synaxis.shieldconnect
 
     scripts:
+      - name: Set up code signing in project
+        script: xcode-project use-profiles
+
       - name: Clean and archive project
         script: |
           xcodebuild clean
