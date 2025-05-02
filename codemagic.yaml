@@ -1,29 +1,19 @@
 workflows:
-  ios-release:
-    name: iOS Release Workflow
-    integrations:
-      app_store_connect: "CodeMagic"
+  ios-test-sign:
+    name: Minimal iOS Sign & Archive
     environment:
       vars:
         XCODE_SCHEME: "shield-connect"
         XCODE_PROJECT: "shield-connect.xcodeproj"
         BUNDLE_ID: "com.synaxis.shieldconnect"
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: $BUNDLE_ID
+      code_signing:
+        certificates:
+          - certificate_url: AppCertificate
+        provisioning_profiles:
+          - bundle_identifier: $BUNDLE_ID
+            profile_url: AppstoreShield
     scripts:
-      - name: Fetch code signing files
-        script: |
-          app-store-connect fetch-signing-files \
-            "$BUNDLE_ID" \
-            --type IOS_APP_STORE \
-            --create
-
-      - name: Resolve Swift packages
-        script: |
-          xcodebuild -resolvePackageDependencies -project "$XCODE_PROJECT"
-
-      - name: Build and archive
+      - name: Clean and archive project
         script: |
           xcodebuild clean
           set -o pipefail && xcodebuild archive \
@@ -33,28 +23,8 @@ workflows:
             -configuration Release \
             -archivePath "$HOME/build/$XCODE_SCHEME.xcarchive" \
             -allowProvisioningUpdates \
-            -verbose \
-            -showBuildTimingSummary \
-            -resultBundlePath "$CM_BUILD_DIR/shieldconnect.xcresult" \
           | tee "$CM_BUILD_DIR/xcodebuild.log"
 
-      - name: Export IPA
-        script: |
-          xcodebuild -exportArchive \
-            -archivePath "$HOME/build/$XCODE_SCHEME.xcarchive" \
-            -exportOptionsPlist ExportOptions.plist \
-            -exportPath "$HOME/build/export" \
-            -allowProvisioningUpdates \
-          | tee "$CM_BUILD_DIR/export.log"
-
     artifacts:
-      - build/export/*.ipa
       - $CM_BUILD_DIR/xcodebuild.log
-      - $CM_BUILD_DIR/export.log
-      - $CM_BUILD_DIR/shieldconnect.xcresult
-
-    publishing:
-      app_store_connect:
-        auth: integration
-        submit_to_testflight: true
-        submit_to_app_store: false
+      - build/**/*.xcarchive
