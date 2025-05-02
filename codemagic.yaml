@@ -40,15 +40,15 @@ workflows:
             --scheme "$XCODE_SCHEME" \
           | tee "$CM_BUILD_DIR/export.log"
 
-      - name: Debug IPA contents
+      - name: Inspect IPA output folder
         script: |
-          echo "IPA directory listing:" 
-          find $HOME -name "*.ipa"
+          echo "Listing IPA output..."
+          ls -lR "$CM_BUILD_DIR/outputs"
 
     artifacts:
       - $CM_BUILD_DIR/xcodebuild.log
       - $CM_BUILD_DIR/export.log
-      - $CM_BUILD_DIR/outputs/ipa/*.ipa
+      - build/outputs/**/*.ipa
       - build/**/*.xcarchive
 
     publishing:
