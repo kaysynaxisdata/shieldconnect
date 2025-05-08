@@ -106,7 +106,7 @@ class PaywallOptionView: UIView {
     
 }
 
-class PaywallViewController: UIViewController, Loadable, Toastable {
+final class PaywallViewController: UIViewController, Loadable, Toastable {
 
     var viewModel: PaywallViewModel?
     
