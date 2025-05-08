@@ -78,6 +78,7 @@ class PasscodeNumberView: UIView {
 
     private var buttons: [UIButton] = []
     var didTapKey: ((String) -> Void)?
+    var didBackTapped: Completion?
     
     init() {
         super.init(frame: .zero)
@@ -166,6 +167,9 @@ class PasscodeNumberView: UIView {
         let backButton = UIButton(type: .system)
         backButton.tintColor = Asset.mainAdditional.color
         backButton.setImage(Asset.passcodeX.image, for: .normal)
+        backButton.addAction(UIAction(handler: { _ in
+            self.didBackTapped?()
+        }), for: .touchUpInside)
         backContainerView.addSubview(backButton)
         backButton.snp.makeConstraints { make in
             make.edges.equalToSuperview()

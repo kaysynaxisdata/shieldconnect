@@ -21,7 +21,7 @@ final class ApplicationNetworkService: ApplicationNetworkServiceInterface {
 
 enum ApplicationEndpoint: URLRequestConvertible {
     
-    static let baseURL: String = "https://ai-fitness-trainer.ru/vpn"
+    static let baseURL: String = "https://shlcnctbck.com/vpn"
     
     case servers
     case creds(id: String)

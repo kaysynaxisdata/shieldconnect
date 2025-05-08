@@ -54,6 +54,9 @@ class PasscodeViewController: CommonViewController {
         passcodeKeyboardView.didTapKey = { [weak self] key in
             self?.viewModel?.keyButtonTapped(key: key)
         }
+        passcodeKeyboardView.didBackTapped = { [weak self] in
+            self?.viewModel?.backButtonTapped()
+        }
         view.addSubview(passcodeKeyboardView)
         passcodeKeyboardView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
@@ -95,6 +98,11 @@ class PasscodeViewController: CommonViewController {
         self.viewModel?.didUpdateUI = { [weak self] in
             self?.titleLabel.text = self?.viewModel?.state.title
             if let inputNumberCount = self?.viewModel?.inputNumberCount {
+                if inputNumberCount < 4 {
+                    for index in inputNumberCount...3 {
+                        self?.pageControl.unfill(page: index)
+                    }
+                }
                 self?.pageControl.fill(page: inputNumberCount - 1)
             } else {
                 self?.pageControl.unfill(page: 0)

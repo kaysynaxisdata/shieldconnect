@@ -61,6 +61,12 @@ class PasscodeViewModel: ObservableObject, Alertable {
         self.passcode.append(key)
     }
     
+    func backButtonTapped() {
+        if !self.passcode.isEmpty {
+            self.passcode.removeLast()
+        }
+    }
+    
     func viewDidLoad() {
         self.didUpdateUI?()
         
