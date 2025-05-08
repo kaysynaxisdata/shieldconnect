@@ -7,6 +7,7 @@ workflows:
 
     environment:
       vars:
+        APP_APPLE_ID: "6744814823"
         XCODE_SCHEME: "shield-connect"
         XCODE_PROJECT: "shield-connect.xcodeproj"
         BUNDLE_ID: "com.synaxis.shieldconnect"
@@ -20,7 +21,24 @@ workflows:
     scripts:
       - name: Set up code signing in project
         script: xcode-project use-profiles
-
+        
+      - name: Get the latest build number and increment
+        script: |
+          echo "Fetching latest build number for App ID: $APP_APPLE_ID"
+          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_APPLE_ID")
+          if [ -z "$LATEST_BUILD_NUMBER" ]; then
+            echo "No existing builds found, starting from 1"
+            LATEST_BUILD_NUMBER=1
+          fi
+          echo "Latest build on App Store: $LATEST_BUILD_NUMBER"
+          cd ios
+          agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
+      
+      - name: Show updated version info
+        script: |
+          /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" ios/Info.plist
+          /usr/libexec/PlistBuddy -c "Print :CFBundleVersion" ios/Info.plist
+          
       - name: Clean and archive project
         script: |
           xcodebuild clean
@@ -32,7 +50,6 @@ workflows:
             -archivePath "$HOME/build/$XCODE_SCHEME.xcarchive" \
             -allowProvisioningUpdates \
           | tee "$CM_BUILD_DIR/xcodebuild.log"
-
       - name: Export .ipa using default settings
         script: |
           xcode-project build-ipa \
