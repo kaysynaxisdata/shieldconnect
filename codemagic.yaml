@@ -33,11 +33,6 @@ workflows:
           echo "Latest build on App Store: $LATEST_BUILD_NUMBER"
           cd ios
           agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
-      
-      - name: Show updated version info
-        script: |
-          /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" ios/Info.plist
-          /usr/libexec/PlistBuddy -c "Print :CFBundleVersion" ios/Info.plist
           
       - name: Clean and archive project
         script: |
