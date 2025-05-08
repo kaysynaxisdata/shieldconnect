@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SettingsViewController: CommonViewController {
+class SettingsViewController: CommonViewController {
 
     var viewModel: SettingsViewModel?
     
