@@ -53,16 +53,14 @@ final class SplashViewModel: ObservableObject {
             do {
                 async let servers = try await self.apiService.application.servers()
                 try await self.storeService.loadProducts()
-                
                 self.storageService.servers = try await servers
-                
                 await MainActor.run {
                     self.input.didLoad?()
                 }
             } catch (let error) {
-//                await MainActor.run {
-//                    self.input.didLoad?()
-//                }
+                await MainActor.run {
+                    self.input.didLoad?()
+                }
                 print(error)
             }
         }

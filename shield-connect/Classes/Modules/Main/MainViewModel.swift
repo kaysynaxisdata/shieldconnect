@@ -75,6 +75,9 @@ class MainViewModel: ObservableObject {
                     self.didUpdate?(self.creds)
                 }
             } catch (let error) {
+                await MainActor.run {
+                    self.didShowError?(error.localizedDescription)
+                }
                 print(error)
             }
         }
