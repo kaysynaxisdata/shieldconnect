@@ -121,12 +121,14 @@ class ProductView: UIView {
     }
     
     private func configure(product: ProductDTO) {
-        self.titleLabel.text = product.name + "\n" + product.localizedPrice
+        self.priceLabel.text = product.localizedPrice
+        var description: String = product.name
         if let salePrice = product.salePrice {
-            self.priceLabel.text = salePrice
+            description = description + "\n" + salePrice
         } else {
-            self.priceLabel.text = product.localizedPrice
+            description = description + "\n" + product.localizedPrice
         }
+        self.titleLabel.text = description
     }
     
     private func updateUI() {

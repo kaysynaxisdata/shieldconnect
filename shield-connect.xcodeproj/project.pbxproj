@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11177A8D2DFAF5450002772E /* Test2.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 11177A8C2DFAF5450002772E /* Test2.storekit */; };
 		1134129B2DC1774800615E8C /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1134129A2DC1774800615E8C /* InfoView.swift */; };
 		113546862DB18A9B0053D003 /* ApplicationEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113546852DB18A9B0053D003 /* ApplicationEndpoint.swift */; };
 		113546882DB18DF40053D003 /* Extension+Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113546872DB18DF40053D003 /* Extension+Publisher.swift */; };
@@ -121,6 +122,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		11177A8C2DFAF5450002772E /* Test2.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Test2.storekit; sourceTree = "<group>"; };
 		1134129A2DC1774800615E8C /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		113546852DB18A9B0053D003 /* ApplicationEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationEndpoint.swift; sourceTree = "<group>"; };
 		113546872DB18DF40053D003 /* Extension+Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Publisher.swift"; sourceTree = "<group>"; };
@@ -498,6 +500,7 @@
 				11A020DA2D980EF20062BADA /* LaunchScreen.storyboard */,
 				11A020ED2D9810AD0062BADA /* swiftgen.yml */,
 				11A020DD2D980EF20062BADA /* Info.plist */,
+				11177A8C2DFAF5450002772E /* Test2.storekit */,
 			);
 			path = "shield-connect";
 			sourceTree = "<group>";
@@ -802,6 +805,7 @@
 				1162C7132DAA5199002142D2 /* RedHatText-Light.ttf in Resources */,
 				1162C70E2DAA468E002142D2 /* RedHatText-SemiBold.ttf in Resources */,
 				11A020D92D980EF20062BADA /* Assets.xcassets in Resources */,
+				11177A8D2DFAF5450002772E /* Test2.storekit in Resources */,
 				11A0210F2D9811590062BADA /* RedHatDisplay-LightItalic.ttf in Resources */,
 				11A020DC2D980EF20062BADA /* Base in Resources */,
 				1162C70F2DAA468E002142D2 /* RedHatText-Bold.ttf in Resources */,

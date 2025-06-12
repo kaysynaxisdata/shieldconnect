@@ -45,6 +45,14 @@ struct ProductDTO {
         self.name = name
     }
     
+    init(id: String) {
+        self.id = id
+        self.description = "Monthly Subscription"
+        self.localizedPrice = "99.99$"
+        self.salePrice = "4.7$/month"
+        self.name = "Billed Monthly "
+    }
+    
     var saleString: String? {
         if let sale = self.sale, sale > 0 {
             return "Save" + " " + "\(sale)" + "%"
@@ -115,7 +123,7 @@ class StoreServiceImplementation: NSObject, StoreService {
 
     func loadProducts() async throws {
         guard !self.productsLoaded else { return }
-
+        
         do {
             let product = try await Product.products(for: productIds)
             self.products = productIds.compactMap { id in

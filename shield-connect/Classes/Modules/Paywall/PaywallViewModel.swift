@@ -23,8 +23,8 @@ class PaywallViewModel {
     
     private var storeService: StoreService
     var dipslayProducts: [ProductDTO] {
-//        let p = [ProductDTO(id: "1", name: "Billed\nmonthly $9.99", price: "9.99$", description: ""),
-//                 ProductDTO(id: "2", name: "Billed\nyearly $25.99", price: "4.17$/month", description: "")]
+//        let p = [ProductDTO(id: "1"),
+//                 ProductDTO(id: "2")]
 //        return p
         return self.storeService.displayProducts
     }
