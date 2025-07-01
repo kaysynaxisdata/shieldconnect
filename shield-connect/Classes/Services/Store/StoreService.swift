@@ -7,6 +7,7 @@
 
 import Foundation
 import StoreKit
+import Adapty
 
 struct ProductDTO {
     var id: String
@@ -161,6 +162,17 @@ class StoreServiceImplementation: NSObject, StoreService {
                 let transaction = try checkVerified(verificationResult)
                 await self.updatePurchasedProducts()
                 await transaction.finish()
+                
+                // ✅ Отправляем инфу о покупке в Adapty
+//                Adapty.makePurchase(product: <#T##any AdaptyPaywallProduct#>)
+//                Adapty.logPurchase(productId: product.id,
+//                                   variationId: nil,
+//                                   price: product.price,
+//                                   currencyCode: product.priceFormatStyle.currency?.identifier ?? "USD") { result in
+//                    if case let .failure(error) = result {
+//                        print("Adapty логирование покупки не удалось: \(error)")
+//                    }
+//                }
             case .userCancelled:
                 debugPrint("Cancel")
                 throw MyError.userCanceled

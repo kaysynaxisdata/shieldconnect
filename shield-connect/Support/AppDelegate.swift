@@ -7,6 +7,7 @@
 
 import UIKit
 import Swinject
+import Adapty
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        setupSDK()
         setupAssembler()
         setupDependencies()
         
@@ -52,6 +54,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appCoordinator?.start()
 
         window?.makeKeyAndVisible()
+    }
+    
+    func setupSDK() {
+        Adapty.activate("public_live_ZWg3dzS1.kmqWTrGRZxmJuBlJ0yNY")
     }
 
 }

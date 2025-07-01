@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Adapty
 
 class PaywallViewModel {
     
@@ -41,6 +42,7 @@ class PaywallViewModel {
     }
     
     func viewDidLoad() {
+//        Adapty.logShowPaywall(<#T##paywall: AdaptyPaywall##AdaptyPaywall#>)
         self.currentProduct = self.dipslayProducts.first
         self.storeService.didUpdate = { [weak self] in
             if self?.storeService.hasUnlockedPro == true {

@@ -100,6 +100,7 @@
 		11A021202D9827000062BADA /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0211F2D9827000062BADA /* SplashViewModel.swift */; };
 		11A021222D9827080062BADA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A021212D9827080062BADA /* SplashView.swift */; };
 		11A021242D9827130062BADA /* SplashModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A021232D9827130062BADA /* SplashModule.swift */; };
+		11A7B89B2E12ECAB00AA1A41 /* Adapty in Frameworks */ = {isa = PBXBuildFile; productRef = 11A7B89A2E12ECAB00AA1A41 /* Adapty */; };
 		11DFBF772DA8496600BF0D11 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DFBF762DA8496600BF0D11 /* MainViewModel.swift */; };
 		11DFBF792DA8497400BF0D11 /* MainModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DFBF782DA8497400BF0D11 /* MainModule.swift */; };
 		11DFBF7B2DA84A8200BF0D11 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DFBF7A2DA84A8200BF0D11 /* MainViewController.swift */; };
@@ -239,6 +240,7 @@
 			files = (
 				113546922DB224090053D003 /* Toast in Frameworks */,
 				11E8A2352DC2C39900CD71F2 /* NVActivityIndicatorViewExtended in Frameworks */,
+				11A7B89B2E12ECAB00AA1A41 /* Adapty in Frameworks */,
 				1162C7402DAA9459002142D2 /* StoreKit.framework in Frameworks */,
 				11E8A2332DC2C39900CD71F2 /* NVActivityIndicatorView in Frameworks */,
 				1162C7642DAB197E002142D2 /* Alamofire in Frameworks */,
@@ -749,6 +751,7 @@
 				113546912DB224090053D003 /* Toast */,
 				11E8A2322DC2C39900CD71F2 /* NVActivityIndicatorView */,
 				11E8A2342DC2C39900CD71F2 /* NVActivityIndicatorViewExtended */,
+				11A7B89A2E12ECAB00AA1A41 /* Adapty */,
 			);
 			productName = "shield-connect";
 			productReference = 11A020CC2D980EF00062BADA /* shield-connect.app */;
@@ -785,6 +788,7 @@
 				113546892DB197420053D003 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				113546902DB224090053D003 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				11E8A2312DC2C39900CD71F2 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */,
+				11A7B8992E12ECAB00AA1A41 /* XCRemoteSwiftPackageReference "AdaptySDK-iOS" */,
 			);
 			productRefGroup = 11A020CD2D980EF00062BADA /* Products */;
 			projectDirPath = "";
@@ -1088,7 +1092,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.synaxis.shieldconnect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1123,7 +1127,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.synaxis.shieldconnect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1192,6 +1196,14 @@
 				minimumVersion = 2.9.1;
 			};
 		};
+		11A7B8992E12ECAB00AA1A41 /* XCRemoteSwiftPackageReference "AdaptySDK-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adaptyteam/AdaptySDK-iOS.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 3.8.2;
+			};
+		};
 		11DFBF7E2DA84BC400BF0D11 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1230,6 +1242,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 11A0211B2D9826BF0062BADA /* XCRemoteSwiftPackageReference "Swinject" */;
 			productName = Swinject;
+		};
+		11A7B89A2E12ECAB00AA1A41 /* Adapty */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11A7B8992E12ECAB00AA1A41 /* XCRemoteSwiftPackageReference "AdaptySDK-iOS" */;
+			productName = Adapty;
 		};
 		11DFBF7F2DA84BC400BF0D11 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

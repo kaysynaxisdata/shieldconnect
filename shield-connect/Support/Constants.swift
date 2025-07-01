@@ -24,9 +24,10 @@ struct Constants {
     }
     
     struct Subscriptions {
+        static let week = "com.shieldvpn.shieldconnect.week"
         static let month = "com.shieldvpn.shieldconnect.month"
         static let year = "com.shieldvpn.shieldconnect.year"
-        static let productIds = [Self.month, Self.year]
+        static let productIds = [Self.week, Self.month]
     }
     
     struct URLs {
