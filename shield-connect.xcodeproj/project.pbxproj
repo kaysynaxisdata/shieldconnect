@@ -70,6 +70,9 @@
 		1162C7642DAB197E002142D2 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 1162C7632DAB197E002142D2 /* Alamofire */; };
 		1162C7672DAB1AF5002142D2 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162C7652DAB1AF5002142D2 /* KeychainItemAccessibility.swift */; };
 		1162C7682DAB1AF5002142D2 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162C7662DAB1AF5002142D2 /* KeychainWrapper.swift */; };
+		119EDBDD2E586AE50092EA96 /* PromoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119EDBDC2E586AE50092EA96 /* PromoViewController.swift */; };
+		119EDBDF2E586AF50092EA96 /* PromoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119EDBDE2E586AF50092EA96 /* PromoViewModel.swift */; };
+		119EDBE12E586B020092EA96 /* PromoModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119EDBE02E586B020092EA96 /* PromoModule.swift */; };
 		11A020D02D980EF00062BADA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A020CF2D980EF00062BADA /* AppDelegate.swift */; };
 		11A020D42D980EF00062BADA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A020D32D980EF00062BADA /* ViewController.swift */; };
 		11A020D72D980EF00062BADA /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 11A020D62D980EF00062BADA /* Base */; };
@@ -183,6 +186,9 @@
 		1162C7572DAB1910002142D2 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		1162C7652DAB1AF5002142D2 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
 		1162C7662DAB1AF5002142D2 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
+		119EDBDC2E586AE50092EA96 /* PromoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoViewController.swift; sourceTree = "<group>"; };
+		119EDBDE2E586AF50092EA96 /* PromoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoViewModel.swift; sourceTree = "<group>"; };
+		119EDBE02E586B020092EA96 /* PromoModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoModule.swift; sourceTree = "<group>"; };
 		11A020CC2D980EF00062BADA /* shield-connect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "shield-connect.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A020CF2D980EF00062BADA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11A020D32D980EF00062BADA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -472,6 +478,16 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		119EDBDB2E586AD00092EA96 /* Promo */ = {
+			isa = PBXGroup;
+			children = (
+				119EDBDC2E586AE50092EA96 /* PromoViewController.swift */,
+				119EDBDE2E586AF50092EA96 /* PromoViewModel.swift */,
+				119EDBE02E586B020092EA96 /* PromoModule.swift */,
+			);
+			path = Promo;
+			sourceTree = "<group>";
+		};
 		11A020C32D980EF00062BADA = {
 			isa = PBXGroup;
 			children = (
@@ -554,6 +570,7 @@
 		11A020E72D980FD60062BADA /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				119EDBDB2E586AD00092EA96 /* Promo */,
 				1162C7412DAAEB15002142D2 /* SpeedChecker */,
 				1162C72F2DAA7448002142D2 /* Paywall */,
 				1162C7232DAA6098002142D2 /* Settings */,
@@ -841,6 +858,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1162C7182DAA54FF002142D2 /* ServersViewModel.swift in Sources */,
+				119EDBE12E586B020092EA96 /* PromoModule.swift in Sources */,
 				11DFBF932DA9229700BF0D11 /* UserProfileModule.swift in Sources */,
 				1162C7112DAA4F46002142D2 /* CountryView.swift in Sources */,
 				1162C6F72DA97200002142D2 /* PasscodeModule.swift in Sources */,
@@ -880,6 +898,7 @@
 				11E8A22B2DC2B4B200CD71F2 /* VPNManager.swift in Sources */,
 				11E8A22C2DC2B4B200CD71F2 /* Observer.swift in Sources */,
 				11E8A2392DC2D16000CD71F2 /* SpeedService.swift in Sources */,
+				119EDBDF2E586AF50092EA96 /* PromoViewModel.swift in Sources */,
 				1162C75A2DAB1910002142D2 /* BaseEndpoint.swift in Sources */,
 				11DFBF8F2DA9227300BF0D11 /* UserProfileViewController.swift in Sources */,
 				113546882DB18DF40053D003 /* Extension+Publisher.swift in Sources */,
@@ -899,6 +918,7 @@
 				1162C7012DA9C2FE002142D2 /* ProgressView.swift in Sources */,
 				1162C73D2DAA8B01002142D2 /* ProductView.swift in Sources */,
 				1162C7612DAB1910002142D2 /* NetworkService.swift in Sources */,
+				119EDBDD2E586AE50092EA96 /* PromoViewController.swift in Sources */,
 				1162C7672DAB1AF5002142D2 /* KeychainItemAccessibility.swift in Sources */,
 				11E8A2272DC2B41200CD71F2 /* ConnectView.swift in Sources */,
 				1157697A2D9B35E90018E984 /* AppAssemblyFactoryProtocol.swift in Sources */,
@@ -1077,7 +1097,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "shield-connect/shield-connect.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "shield-connect/Info.plist";
@@ -1092,7 +1112,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.synaxis.shieldconnect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1112,7 +1132,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "shield-connect/shield-connect.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "shield-connect/Info.plist";
@@ -1127,7 +1147,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.synaxis.shieldconnect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

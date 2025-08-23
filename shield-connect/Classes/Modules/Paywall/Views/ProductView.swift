@@ -126,7 +126,11 @@ class ProductView: UIView {
         if let salePrice = product.salePrice {
             description = description + "\n" + salePrice
         } else {
-            description = description + "\n" + product.localizedPrice
+            if product.trialDays > 0 {
+                description = description + "\n" + "\(product.trialDays) days trial" 
+            } else {
+                description = description + "\n" + product.localizedPrice
+            }
         }
         self.titleLabel.text = description
     }

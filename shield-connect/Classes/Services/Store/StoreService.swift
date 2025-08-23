@@ -16,6 +16,7 @@ struct ProductDTO {
     var localizedPrice: String
     var salePrice: String?
     var sale: Int?
+    var trialDays: Int
     
     private var product: Product?
     
@@ -37,13 +38,21 @@ struct ProductDTO {
         
         self.localizedPrice = product.displayPrice
         self.name = product.displayName
+        
+        if let offer = product.subscription?.introductoryOffer?.period.value {
+            self.trialDays = offer
+        } else {
+            self.trialDays = 0
+        }
+        
     }
     
-    init(id: String, name: String, price: String, description: String) {
+    init(id: String, name: String, price: String, description: String, trialDays: Int) {
         self.id = id
         self.description = description
         self.localizedPrice = price
         self.name = name
+        self.trialDays = trialDays
     }
     
     init(id: String) {
@@ -52,6 +61,7 @@ struct ProductDTO {
         self.localizedPrice = "99.99$"
         self.salePrice = "4.7$/month"
         self.name = "Billed Monthly "
+        self.trialDays = 0
     }
     
     var saleString: String? {
@@ -89,6 +99,12 @@ protocol StoreService {
 class StoreServiceImplementation: NSObject, StoreService {
 
     var displayProducts: [ProductDTO] {
+        
+//        let week = ProductDTO(id: "com.shieldvpn.shieldconnect.week", name: "Week", price: "23", description: "3 day trial", trialDays: 3)
+//        let months = ProductDTO(id: "com.shieldvpn.shieldconnect.month", name: "Month", price: "23", description: "2323", trialDays: 0)
+//        
+//        return [week, months]
+        
         return products.map { product in
             let p = ProductDTO(
                 product: product
@@ -100,6 +116,7 @@ class StoreServiceImplementation: NSObject, StoreService {
     private var products: [Product] = []
     private var productsLoaded = false
     private var updates: Task<Void, Never>? = nil
+    private var storageService: StorageService
     
     var didUpdate: Completion?
 
@@ -113,7 +130,8 @@ class StoreServiceImplementation: NSObject, StoreService {
         return !self.purchasedProductIDs.isEmpty
     }
     
-    override init() {
+    init(storageService: StorageService) {
+        self.storageService = storageService
         super.init()
         self.updates = observeTransactionUpdates()
         
@@ -124,7 +142,7 @@ class StoreServiceImplementation: NSObject, StoreService {
 
     func loadProducts() async throws {
         guard !self.productsLoaded else { return }
-        
+                
         do {
             let product = try await Product.products(for: productIds)
             self.products = productIds.compactMap { id in
@@ -156,7 +174,17 @@ class StoreServiceImplementation: NSObject, StoreService {
     
     private func purchase(_ product: Product) async throws {
         do {
-            let result = try await product.purchase()
+            
+            var result: Product.PurchaseResult
+            if let token = UUID(uuidString: self.storageService.accToken) {
+                result = try await product.purchase(options: [
+                    .appAccountToken(token)
+                ])
+            } else {
+                result = try await product.purchase()
+            }
+
+//            let result = try await product.purchase()
             switch result {
             case .success(let verificationResult):
                 let transaction = try checkVerified(verificationResult)

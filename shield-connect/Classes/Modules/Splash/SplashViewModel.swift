@@ -10,7 +10,7 @@ import Combine
 import Swinject
 
 class SplashModuleInput {
-    var didLoad: Completion?
+    var didLoad: ((PromoResponse?) -> Void)?
     var resolver: Resolver
     
     init(resolver: Resolver) {
@@ -49,17 +49,19 @@ final class SplashViewModel: ObservableObject {
     }
     
     func viewDidLoad() {
+        
         Task {
             do {
                 async let servers = try await self.apiService.application.servers()
+                let promo = await self.apiService.application.promo(acc: self.storageService.accToken)
                 try await self.storeService.loadProducts()
                 self.storageService.servers = try await servers
                 await MainActor.run {
-                    self.input.didLoad?()
+                    self.input.didLoad?(promo)
                 }
             } catch (let error) {
                 await MainActor.run {
-                    self.input.didLoad?()
+                    self.input.didLoad?(nil)
                 }
                 print(error)
             }

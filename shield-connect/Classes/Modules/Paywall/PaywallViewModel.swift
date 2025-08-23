@@ -23,6 +23,8 @@ class PaywallViewModel {
     var input: PaywallModuleInput
     
     private var storeService: StoreService
+    private var storageService: StorageService
+    private var apiService: APINetworkService
     var dipslayProducts: [ProductDTO] {
 //        let p = [ProductDTO(id: "1"),
 //                 ProductDTO(id: "2")]
@@ -38,11 +40,12 @@ class PaywallViewModel {
     init(input: PaywallModuleInput) {
         self.input = input
         self.storeService = input.resolver.resolve(StoreService.self)!
+        self.apiService = input.resolver.resolve(APINetworkService.self)!
+        self.storageService = input.resolver.resolve(StorageService.self)!
         self.currentProduct = self.dipslayProducts.first
     }
     
     func viewDidLoad() {
-//        Adapty.logShowPaywall(<#T##paywall: AdaptyPaywall##AdaptyPaywall#>)
         self.currentProduct = self.dipslayProducts.first
         self.storeService.didUpdate = { [weak self] in
             if self?.storeService.hasUnlockedPro == true {
@@ -74,10 +77,21 @@ class PaywallViewModel {
             self.storeService.pay(
                 productId: currentProduct.id,
                 completion: { [weak self] errorString in
+                    
+                    guard let self = self else {
+                        return
+                    }
+                    
                     DispatchQueue.main.async {
-                        self?.didLoading?(false)
+                        self.didLoading?(false)
                         if let errorString = errorString {
-                            self?.didShowError?(errorString)
+                            self.didShowError?(errorString)
+                        } else {
+                            Task {
+                                do {
+                                    let _ = try await self.apiService.application.notify(acc: self.storageService.accToken, paywall: "origin")
+                                }
+                            }
                         }
                     }
                 }

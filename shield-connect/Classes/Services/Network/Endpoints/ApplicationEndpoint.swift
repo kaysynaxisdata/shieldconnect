@@ -2,9 +2,13 @@ import Foundation
 import Alamofire
 import Combine
 
+struct StatusResponse: Decodable {}
+
 protocol ApplicationNetworkServiceInterface: AnyObject {
     func servers() async throws -> [ServerCountry]
     func creds(id: String) async throws -> Country
+    func promo(acc: String) async -> PromoResponse?
+    func notify(acc: String, paywall: String) async throws -> StatusResponse
 }
 
 final class ApplicationNetworkService: ApplicationNetworkServiceInterface {
@@ -17,6 +21,14 @@ final class ApplicationNetworkService: ApplicationNetworkServiceInterface {
         return try await NetworkService.request(ApplicationEndpoint.creds(id: id)).asyncValue()
     }
     
+    func promo(acc: String) async -> PromoResponse? {
+        return try? await NetworkService.request(ApplicationEndpoint.promo2(acc: acc)).asyncValue()
+    }
+    
+    func notify(acc: String, paywall: String) async throws -> StatusResponse {
+        return try await NetworkService.request(ApplicationEndpoint.notify(acc: acc, paywall: paywall)).asyncValue()
+    }
+    
 }
 
 enum ApplicationEndpoint: URLRequestConvertible {
@@ -25,6 +37,8 @@ enum ApplicationEndpoint: URLRequestConvertible {
     
     case servers
     case creds(id: String)
+    case promo2(acc: String)
+    case notify(acc: String, paywall: String)
     
     func asURLRequest() throws -> URLRequest {
         let url = try ApplicationEndpoint.baseURL.asURL()
@@ -52,7 +66,7 @@ enum ApplicationEndpoint: URLRequestConvertible {
     
     private var method: HTTPMethod {
         switch self {
-        case .servers, .creds:
+        case .servers, .creds, .promo2, .notify:
             return .get
         }
     }
@@ -63,6 +77,10 @@ enum ApplicationEndpoint: URLRequestConvertible {
             return "servers"
         case .creds:
             return "creds"
+        case .promo2:
+            return "promo2"
+        case .notify:
+            return "notify"
         }
     }
     
@@ -70,6 +88,10 @@ enum ApplicationEndpoint: URLRequestConvertible {
         switch self {
         case .creds(let id):
             return ["id": id]
+        case .promo2(let acc):
+            return ["acc": acc]
+        case .notify(let acc, let paywall):
+            return ["acc": acc, "paywall": paywall]
         default:
             return nil
         }

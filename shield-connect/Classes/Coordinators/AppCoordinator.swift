@@ -23,12 +23,33 @@ final class AppCoordinator: Coordinator {
     
     func showSplashFlow() {
         let splashInput = SplashModuleInput(resolver: self.assembler.resolver)
-        splashInput.didLoad = { [weak self] in
-            self?.showSecurity()
+        splashInput.didLoad = { [weak self] promoResponse in
+            if let promoResponse = promoResponse {
+                self?.showPromo(promo: promoResponse)
+            } else {
+                self?.showSecurity()
+            }
         }
         let module = SplashModuleModule()
         module.configure(with: splashInput)
         self.navigationController.setViewControllers([module.toPresent], animated: false)
+    }
+    
+    func showPromo(promo: PromoResponse) {
+        let promoInput = PromoModuleInput(resolver: self.assembler.resolver, promo: promo)
+        let module = PromoModule()
+        module.configure(with: promoInput)
+        let vc = module.toPresent
+        promoInput.didFinish = { [weak self, weak vc] in
+            vc?.dismiss(
+                animated: true,
+                completion: { [weak self] in
+                    self?.showSecurity()
+                }
+            )
+        }
+        vc.modalPresentationStyle = .overCurrentContext
+        self.navigationController.present(vc, animated: true)
     }
     
     func showSecurity() {

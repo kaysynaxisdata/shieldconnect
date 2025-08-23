@@ -18,6 +18,8 @@
   ],
   "settings" : {
     "_failTransactionsEnabled" : false,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
     "_storeKitErrors" : [
       {
         "current" : null,
@@ -70,7 +72,11 @@
     {
       "id" : "D373CB21",
       "localizations" : [
-
+        {
+          "description" : "Prime",
+          "displayName" : "Prime",
+          "locale" : "en_US"
+        }
       ],
       "name" : "Prem",
       "subscriptions" : [
@@ -88,8 +94,8 @@
           "introductoryOffer" : null,
           "localizations" : [
             {
-              "description" : "",
-              "displayName" : "",
+              "description" : "test",
+              "displayName" : "test",
               "locale" : "en_US"
             }
           ],
@@ -116,8 +122,8 @@
           "introductoryOffer" : null,
           "localizations" : [
             {
-              "description" : "",
-              "displayName" : "",
+              "description" : "test",
+              "displayName" : "test",
               "locale" : "en_US"
             }
           ],
@@ -141,11 +147,15 @@
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "B3FEFC9B",
-          "introductoryOffer" : null,
+          "introductoryOffer" : {
+            "internalID" : "4E432163",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P3D"
+          },
           "localizations" : [
             {
-              "description" : "",
-              "displayName" : "",
+              "description" : "test",
+              "displayName" : "test",
               "locale" : "en_US"
             }
           ],

@@ -18,8 +18,8 @@ final class ServicesAssembly: Assembly {
 //
         
         // Store
-        container.register(StoreService.self) { _ in
-            StoreServiceImplementation()
+        container.register(StoreService.self) { r in
+            StoreServiceImplementation(storageService: r.resolve(StorageService.self)!)
         }
         .inObjectScope(.container)
         

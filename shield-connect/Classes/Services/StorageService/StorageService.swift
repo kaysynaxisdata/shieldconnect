@@ -13,6 +13,7 @@ protocol StorageService {
     var isFaceIDInstall: Bool { get }
     var servers: [ServerCountry] { get set }
     var currentServerID: String? { get set }
+    var accToken: String { get }
     
     func resetPasscode()
     func savePasscode(code: String)
@@ -33,6 +34,16 @@ class StorageServiceImplementation: StorageService {
     
     var isPasscodeInstall: Bool {
         return passcode != nil
+    }
+    var accToken: String {
+        if let token = UserDefaults.standard.string(forKey: "accToken"), token.isEmpty == false {
+            return token
+        } else {
+            let uuidString = UUID().uuidString
+            print("uuid: \(uuidString)")
+            UserDefaults.standard.set(uuidString, forKey: "accToken")
+            return uuidString
+        }
     }
     
     var isFaceIDInstall: Bool {
