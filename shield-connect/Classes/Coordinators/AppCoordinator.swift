@@ -25,7 +25,11 @@ final class AppCoordinator: Coordinator {
         let splashInput = SplashModuleInput(resolver: self.assembler.resolver)
         splashInput.didLoad = { [weak self] promoResponse in
             if let promoResponse = promoResponse {
-                self?.showPromo(promo: promoResponse)
+                switch promoResponse.df {
+                    case "as": self?.showPromo(promo: promoResponse)
+                    case "cp": self?.showPromoTwo(promo: promoResponse)
+                    default: self?.showSecurity()
+                }
             } else {
                 self?.showSecurity()
             }
@@ -38,6 +42,23 @@ final class AppCoordinator: Coordinator {
     func showPromo(promo: PromoResponse) {
         let promoInput = PromoModuleInput(resolver: self.assembler.resolver, promo: promo)
         let module = PromoModule()
+        module.configure(with: promoInput)
+        let vc = module.toPresent
+        promoInput.didFinish = { [weak self, weak vc] in
+            vc?.dismiss(
+                animated: true,
+                completion: { [weak self] in
+                    self?.showSecurity()
+                }
+            )
+        }
+        vc.modalPresentationStyle = .overCurrentContext
+        self.navigationController.present(vc, animated: true)
+    }
+    
+    func showPromoTwo(promo: PromoResponse) {
+        let promoInput = PromoTwoModuleInput(resolver: self.assembler.resolver, promo: promo)
+        let module = PromoTwoModule()
         module.configure(with: promoInput)
         let vc = module.toPresent
         promoInput.didFinish = { [weak self, weak vc] in

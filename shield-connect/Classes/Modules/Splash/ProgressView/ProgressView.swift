@@ -63,24 +63,38 @@ class ProgressView: UIView {
             self.glowWidthConstraint = make.width.equalTo(0).constraint
         }
 
-        start()
+//        start(duration: 2)
     }
     
-    private func start() {
-        self.progressView.layoutIfNeeded()
-        progressView.snp.updateConstraints { make in
-            self.progressWidthConstraint = make.width.equalTo(400).constraint
-        }
-        glowView.snp.updateConstraints { make in
-            self.glowWidthConstraint = make.width.equalTo(400).constraint
-        }
+    func start(duration: TimeInterval) {
+        self.progressWidthConstraint?.update(offset: 0)
+        self.glowWidthConstraint?.update(offset: 0)
+        self.layoutIfNeeded()
+        
+//        progressView.snp.updateConstraints { make in
+//            self.progressWidthConstraint = make.width.equalTo(0).constraint
+//        }
+//        glowView.snp.updateConstraints { make in
+//            self.glowWidthConstraint = make.width.equalTo(0).constraint
+//        }
+        self.layoutIfNeeded()
+        self.progressWidthConstraint?.update(offset: containerView.frame.width)
+        self.glowWidthConstraint?.update(offset: containerView.frame.width)
+//        progressView.snp.updateConstraints { make in
+//            self.progressWidthConstraint = make.width.equalTo(containerView.frame.width).constraint
+//        }
+//        glowView.snp.updateConstraints { make in
+//            self.glowWidthConstraint = make.width.equalTo(containerView.frame.width).constraint
+//        }
         UIView.animate(
-            withDuration: 2,
+            withDuration: duration,
             animations: { [weak self] in
                 self?.layoutIfNeeded()
             },
             completion: { [weak self] complete in
-                self?.didLoad?()
+                if complete == true {
+                    self?.didLoad?()
+                }
             }
         )
     }

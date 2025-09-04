@@ -179,17 +179,20 @@ class PromoView: UIView {
     }
     
     func configure(model: PromoResponse) {
-        self.titleLabel.text = model.promo_struct.title
-        self.subtitleLabel.text = model.promo_struct.subtitle
-        self.descriptionLabel.text = model.promo_struct.bottomText
-        self.actionButton.setTitle(model.callToAction, for: .normal)
-        
         self.stepsVStack.arrangedSubviews.forEach({ $0.removeFromSuperview() })
-        model.promo_struct.steps.forEach { (key, step) in
-            let stepView = StepView()
-            stepView.configure(step: step.subStep1, content: step.subStep2)
-            self.stepsVStack.addArrangedSubview(stepView)
+
+        if let promo_struct = model.promo_struct {
+            self.titleLabel.text = promo_struct.title
+            self.subtitleLabel.text = promo_struct.subtitle
+            self.descriptionLabel.text = promo_struct.bottomText
+            promo_struct.steps.forEach { (key, step) in
+                let stepView = StepView()
+                stepView.configure(step: step.subStep1, content: step.subStep2)
+                self.stepsVStack.addArrangedSubview(stepView)
+            }
         }
+        
+        self.actionButton.setTitle(model.callToAction, for: .normal)
     }
     
 }

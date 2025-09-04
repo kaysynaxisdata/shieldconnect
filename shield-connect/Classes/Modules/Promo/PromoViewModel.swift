@@ -19,9 +19,89 @@ struct PromoStep: Decodable {
 
 struct PromoResponse: Decodable {
     var productId: String
-    var promo_struct: PromoStruct
+    var promo_struct: PromoStruct?
+    var lines: [SecurityCheckLine]?
     var callToAction: String
     var df: String?
+}
+
+struct SecurityCheckLine: Codable {
+    var title: String
+    var subtitle: String
+    var icon: String
+    var steps: [String]?
+    var stepName: String
+    var checkIcon: String
+    var processIcon: String
+    var isPayment: Bool
+    var delay: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case title, subtitle, icon, steps, stepName, checkIcon, processIcon, isPayment, delay
+    }
+    
+}
+
+extension PromoResponse {
+    static let mock: [SecurityCheckLine] = .init(
+        [
+            SecurityCheckLine(
+                title: "Rapid check\nthe security of iCloud\nand Apple ID",
+                subtitle: "Your security and comfort are our top priorities",
+                icon: "www.google.com",
+                steps: [
+                    "Verifying the activation of login notifications for new devices…",
+                    "Verifying the activation of two-factor authentication…",
+                    "Notification confirming entry through another device…"
+                ],
+                stepName: "Login Notifications",
+                checkIcon: "URLString",
+                processIcon: "URLString",
+                isPayment: false,
+                delay: 6000
+            ),
+            SecurityCheckLine(
+                title: "Rapid check\nthe security of iCloud\nand Apple ID",
+                subtitle: "Your security and comfort are our top priorities",
+                icon: "www.google.com",
+                steps: [
+                    "Verifying the presence of passwords on devices…",
+                    "Verifying the activation of lock/remote control features…",
+                    "Checking the phishing software on device…"
+                ],
+                stepName: "Device Passwords",
+                checkIcon: "URLString",
+                processIcon: "URLString",
+                isPayment: false,
+                delay: 6000
+            ),
+            SecurityCheckLine(
+                title: "Rapid check\nthe security of iCloud\nand Apple ID",
+                subtitle: "Your security and comfort are our top priorities",
+                icon: "www.google.com",
+                steps: [
+                    "Verifying the activation of data backup in iCloud…",
+                    "Checking and removing unnecessary devices…",
+                    "Alerting against the use of open and unreliable Wi-Fi networks…"
+                ],
+                stepName: "Data Backup",
+                checkIcon: "URLString",
+                processIcon: "URLString",
+                isPayment: false,
+                delay: 6000
+            ),
+            SecurityCheckLine(
+                title: "All identified\nchallenges have been effectively neutralized",
+                subtitle: "Your security is currently operating at peak levels. ",
+                icon: "www.google.com",
+                steps: nil,
+                stepName: "Keep the app on your phone.\nDeleting it might expose\nyour device and data",
+                checkIcon: "URLString",
+                processIcon: "URLString",
+                isPayment: true
+            )
+        ]
+    )
 }
 
 struct PromoStruct: Decodable {

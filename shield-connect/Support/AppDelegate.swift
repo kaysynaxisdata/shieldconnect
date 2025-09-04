@@ -8,6 +8,7 @@
 import UIKit
 import Swinject
 import Adapty
+import SDWebImageSVGCoder
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -39,6 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         container.register(Assembler.self) { _ in
             self.assembler
         }.inObjectScope(.container)
+        
     }
     
     func setupDependencies() {
@@ -57,6 +59,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func setupSDK() {
+        let svgCoder = SDImageSVGCoder.shared
+        SDImageCodersManager.shared.addCoder(svgCoder)
         Adapty.activate("public_live_ZWg3dzS1.kmqWTrGRZxmJuBlJ0yNY")
     }
 

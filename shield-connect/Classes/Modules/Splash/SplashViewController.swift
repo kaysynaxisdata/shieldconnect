@@ -65,6 +65,8 @@ class SplashViewController: UIViewController {
         progressView.snp.makeConstraints { make in
             make.height.equalTo(6)
         }
+        
+        progressView.start(duration: 2)
     }
     
     private func setupBindings() {
