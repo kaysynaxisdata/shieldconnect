@@ -31,8 +31,8 @@ struct Constants {
     }
     
     struct URLs {
-        static let privacy: String = "https://docs.google.com/document/d/1fJlqtcymw6fFFo1HO4Lp6XemSX97NCOtZh1qhggnfSs/edit?usp=sharing"
-        static let terms: String = "https://docs.google.com/document/d/1y-4_0X6AO62MN-beLmDy_1VyBmstxmR_duFxz-lX7Rs/edit?usp=sharing"
+        static let privacy: String = "https://doc-hosting.flycricket.io/shield-connect-secure-vpn-privacy-policy/12bb1bf5-f3df-45e7-b7be-52595c9c81e5/privacy"
+        static let terms: String = "https://doc-hosting.flycricket.io/shield-connect-secure-vpn-terms-of-use/03ad9e1b-db1f-44da-99ad-b17d385d069d/terms"
         static let support: String = "kay@synaxisdata.space"
     }
     
